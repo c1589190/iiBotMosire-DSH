@@ -1,0 +1,18 @@
+# iiBot wake profile bundle.
+#
+# Row 1 points the generic InboxMosire adapter at the named `iibot` profile.
+# `config` replaces the adapter row's whole config, so only the profile selector
+# is set here; apiUrl/tokenFile/channels still come from the machine-local
+# `$DSH_HOME/inbox-mosire/config.json` or `INBOX_*` environment.
+#
+# Row 2 registers the profile data with the adapter's `inboxWakeProfiles`
+# service. The profile names qq_conversation_read/ack and the Chinese view-ack
+# body; it never calls a business tool.
+- id: inbox-mosire-adapter
+  name: '@mosire/dsh-inbox-mosire'
+  config:
+    wakeProfile: iibot
+
+- insert:
+    - id: iibot-wake-profile
+      name: '@mosire/dsh-iibot-wake-profile'

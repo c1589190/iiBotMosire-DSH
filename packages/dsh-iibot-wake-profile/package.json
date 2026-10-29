@@ -1,0 +1,35 @@
+{
+  "name": "@mosire/dsh-iibot-wake-profile",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "iiBot wake profile for @mosire/dsh-inbox-mosire: qq_* business tools and the Chinese view-ack body.",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "engines": {
+      "dsh": ">=0.2.0-rc.2"
+    }
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "license": "MIT"
+}

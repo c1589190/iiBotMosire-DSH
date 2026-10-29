@@ -1,0 +1,77 @@
+# dsh-persona-mode — one bundle, two rows:
+#
+#   persona-mode-context   Host plugin: injects PERSONA.md as the first user
+#                          message, re-injects after compaction or when the file
+#                          hash changes, and blocks qq_conversation_send while
+#                          the file is missing.
+#   preset-persona-standard  The "标准人设扮演" agent preset: a two-line system
+#                          prompt, no coding tools, compaction only.
+#
+# qq_* tools are Host MCP tools, so they are not declared here. This preset
+# mounts the Minimal tool group: read-only fs (read/read_image) plus the
+# persistent bash shell. Host tools from other profile plugins can still appear;
+# use profile isolation or a future allowlist row when hard isolation is required.
+- insert:
+    - id: persona-mode-context
+      name: '@mosire/dsh-persona-mode'
+      config:
+        presetId: persona-standard
+        file: PERSONA.md
+
+    - id: preset-persona-standard
+      name: '@deepseek-ai/dsh-agent-preset'
+      config:
+        id: persona-standard
+        name: 标准人设扮演
+        description: 按 PERSONA.md 扮演固定角色；首条消息注入，压缩后自动重注，缺文件时阻止外发。
+        order: 6
+        plugins:
+          - id: persona
+            name: '@deepseek-ai/dsh-persona'
+            config:
+              prefix: |-
+                你在扮演 <persona-contract> 定义的角色。在调用工具进行聊天发言时，请遵循 <persona-contract> 中的相关规则。
+              complete: true
+              includeRuntimeContext: false
+
+          - id: tool-fs
+            name: '@deepseek-ai/dsh-tool-fs'
+            config:
+              read: true
+              readImage: true
+              write: false
+              edit: false
+
+          - id: persistent-shell
+            name: cordis:group
+            group: true
+            isolate:
+              terminals: true
+            config:
+              - id: pty
+                name: '@deepseek-ai/dsh-terminal'
+              - id: terminal-bash
+                name: '@deepseek-ai/dsh-terminal-bash'
+                config:
+                  timeoutMs: 300000
+              - id: persistent-bash
+                name: '@deepseek-ai/dsh-tool-bash-persistent'
+                config:
+                  timeoutMs: 300000
+
+          - id: tool-custom-subagent
+            name: '@mosire/dsh-persona-mode/custom-subagent'
+            config:
+              provider: spawn
+              toolName: subagent_custom
+
+          - id: compaction
+            name: cordis:group
+            group: true
+            isolate:
+              compaction: true
+            config:
+              - id: compaction-basic
+                name: '@deepseek-ai/dsh-compaction-basic'
+              - id: command-compact
+                name: '@deepseek-ai/dsh-command-compact'

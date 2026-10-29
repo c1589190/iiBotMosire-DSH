@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Persona Standard",
+    "description": "Roleplays the character defined in PERSONA.md; injects it as the first message, re-anchors after compaction, and blocks outbound sends when the file is missing."
+  }
+}

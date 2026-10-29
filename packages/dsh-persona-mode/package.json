@@ -1,0 +1,44 @@
+{
+  "name": "@mosire/dsh-persona-mode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DSH agent preset for single-character QQ roleplay: first-message PERSONA.md injection, compaction re-anchor, missing-file send guard.",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./custom-subagent": "./custom-subagent.js",
+    "./custom-guard": "./custom-guard.js",
+    "./custom-persona": "./custom-persona.js",
+    "./custom-restrict": "./custom-restrict.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "custom-subagent.js",
+    "custom-guard.js",
+    "custom-persona.js",
+    "custom-restrict.js",
+    "lib",
+    "cordis.patch.yml",
+    "PERSONA.md.example",
+    "README.md",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "engines": {
+      "dsh": ">=0.2.1-rc.2"
+    }
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

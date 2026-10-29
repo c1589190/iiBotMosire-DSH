@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "iiBot 唤醒 profile",
+    "description": "为 InboxMosire 唤醒适配器提供 qq_conversation_read/ack 与中文 view-ack 正文。"
+  }
+}

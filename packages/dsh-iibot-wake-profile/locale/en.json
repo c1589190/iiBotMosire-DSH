@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "iiBot Wake Profile",
+    "description": "Registers qq_conversation_read/ack and the Chinese view-ack body for the InboxMosire wake adapter."
+  }
+}
