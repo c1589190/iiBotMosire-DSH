@@ -5,9 +5,9 @@
 # is set here; apiUrl/tokenFile/channels still come from the machine-local
 # `$DSH_HOME/inbox-mosire/config.json` or `INBOX_*` environment.
 #
-# Row 2 registers the profile data with the adapter's `inboxWakeProfiles`
-# service. The profile names qq_conversation_read/ack and the Chinese view-ack
-# body; it never calls a business tool.
+# Row 2 registers the zero-semantic `iibot` alias with the adapter's
+# `inboxWakeProfiles` service. It contains no business tool names, business
+# kinds, or workflow copy; the generic adapter supplies the wake bodies.
 - id: inbox-mosire-adapter
   name: '@mosire/dsh-inbox-mosire'
   config:

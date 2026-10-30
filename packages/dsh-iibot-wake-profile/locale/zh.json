@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "iiBot 唤醒 profile",
-    "description": "为 InboxMosire 唤醒适配器提供 qq_conversation_read/ack 与中文 view-ack 正文。"
+    "description": "为现有 wakeProfile=iibot 配置保留零语义 iibot profile 名称；不包含工具名、业务 kind 或流程文案。"
   }
 }

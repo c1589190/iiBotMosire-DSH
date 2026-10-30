@@ -13,9 +13,9 @@
 ## 边界
 
 - 不改 `InboxMosire`、`InboxMosire-DSH`、`iiBotMosire` 的源码；只通过
-  `wakeProfile`、MCP 工具和 `PERSONA.md` 消费它们。
-- `InboxMosire-DSH` 的 `inboxWakeProfiles` 服务是唯一 wake 扩展点；没有这个服务就
-  停下来报告，不要复制一份适配器实现。
+  generic view-ack、MCP 工具和 `PERSONA.md` 消费它们。
+- `InboxMosire-DSH` 的 `inboxWakeProfiles` 服务只用于可选通用文案；iibot
+  wake-profile 已收敛为零语义兼容 alias，不承载工具名、业务 kind 或流程文案。
 - `qq_conversation_send` / `qq_conversation_ack` 只由顶层会话调用；子 Agent 的
   `qq_*`/`inbox_*` 必须被 guard 拒绝。
 - 人设文件 `PERSONA.md` 归操作者所有；Bot 不写回自己的 system prompt。

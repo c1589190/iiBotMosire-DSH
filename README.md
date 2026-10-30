@@ -9,14 +9,14 @@ iiBot 业务语义的东西。
 | 包 | 作用 |
 |---|---|
 | [`packages/dsh-persona-mode`](packages/dsh-persona-mode) | 「标准人设扮演」预设：首条消息注入 `PERSONA.md`、压缩后重锚、缺文件拦截外发、`subagent_custom` 一次性子 Agent |
-| [`packages/dsh-iibot-wake-profile`](packages/dsh-iibot-wake-profile) | 给 `@mosire/dsh-inbox-mosire` 注册 `iibot` 唤醒 profile：`qq_conversation_read/ack` 工具名 + 中文 view-ack 正文 |
+| [`packages/dsh-iibot-wake-profile`](packages/dsh-iibot-wake-profile) | **legacy 零语义 alias**：只为现有 `wakeProfile=iibot` 配置保留名称解析；不包含工具名、业务 kind 或流程文案 |
 
 ## 依赖方向
 
 ```text
-InboxMosire-DSH (generic wake adapter, >= 0.5.0)
+InboxMosire-DSH (generic wake adapter, >= 0.7.0)
         ▲
-        │ inboxWakeProfiles / wakeProfile: iibot
+        │ generic view-ack (wakeProfile optional legacy alias)
 iiBotMosire-DSH (this repo)
         │
         ▼
@@ -24,19 +24,29 @@ iiBotMosire (QQ bot + qq_* MCP)
 ```
 
 - 本仓不复制 Inbox 适配器实现，只消费它的 `inboxWakeProfiles` 服务和
-  `wakeProfile` 配置。
+  `wakeProfile` 配置；通用 view-ack 已不依赖程序 profile。
 - 本仓不修改 `iiBotMosire` Java 源码；`qq_*` 工具由 Bot MCP 提供。
-- 人设内容、唤醒正文、工具名都留在这里；通用适配器保持 agent/program 无关。
+- 人设与 DSH 专属体验留在本仓；业务工具名、read/send/ack 流程和
+  `digest_complete` 语义只由 iiBot MCP 自己描述。wake-profile 包只做迁移期
+  名称兼容，不再承载 QQ 业务语义。
 
 ## 安装顺序
 
+新安装：
+
 ```text
 plugin_manager install_bundle  target = /home/cna/DevMosire-iiBot/InboxMosire-DSH
-plugin_manager install_bundle  target = /home/cna/DevMosire-iiBot/iiBotMosire-DSH/packages/dsh-iibot-wake-profile
 plugin_manager install_bundle  target = /home/cna/DevMosire-iiBot/iiBotMosire-DSH/packages/dsh-persona-mode
 ```
 
-装完重启 DSH。新增 JS 模块不能热加载。
+只有仍保留 `wakeProfile=iibot` 的旧配置才额外安装：
+
+```text
+plugin_manager install_bundle  target = /home/cna/DevMosire-iiBot/iiBotMosire-DSH/packages/dsh-iibot-wake-profile
+```
+
+装完重启 DSH。新增 JS 模块不能热加载。新配置应使用 generic profile；
+`wakeProfile` 未注册时通用适配器也会回退 generic。
 
 ## 测试
 

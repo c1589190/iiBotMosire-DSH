@@ -1,9 +1,9 @@
 {
   "name": "@mosire/dsh-iibot-wake-profile",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "iiBot wake profile for @mosire/dsh-inbox-mosire: qq_* business tools and the Chinese view-ack body.",
+  "description": "Legacy zero-semantic iibot wake profile alias for @mosire/dsh-inbox-mosire; program tools stay in the program MCP.",
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json",
